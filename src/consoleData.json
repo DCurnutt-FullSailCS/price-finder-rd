@@ -1,0 +1,14 @@
+[
+  {
+    "name": "PlayStation 5",
+    "aliases": ["ps5"],
+    "retailer": "Walmart",
+    "price": 499.99
+  },
+  {
+    "name": "Xbox Series X",
+    "aliases": ["xbox", "series x"],
+    "retailer": "Best Buy",
+    "price": 499.99
+  }
+]
