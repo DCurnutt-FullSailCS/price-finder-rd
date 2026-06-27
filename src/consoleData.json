@@ -1,14 +1,33 @@
 [
   {
     "name": "PlayStation 5",
-    "aliases": ["ps5"],
+    "aliases": ["ps5", "playstation", "sony ps5"],
     "retailer": "Walmart",
     "price": 499.99
   },
   {
     "name": "Xbox Series X",
-    "aliases": ["xbox", "series x"],
+    "aliases": ["xbox", "series x", "xbox x"],
     "retailer": "Best Buy",
     "price": 499.99
+  },
+  {
+    "name": "Nintendo Switch",
+    "aliases": ["switch", "nintendo", "switch console"],
+    "retailer": "Target",
+    "price": 299.99
+  },
+  {
+    "name": "PlayStation 4",
+    "aliases": ["ps4", "playstation 4"],
+    "retailer": "GameStop",
+    "price": 249.99
+  },
+  {
+    "name": "Xbox Series S",
+    "aliases": ["series s", "xbox s"],
+    "retailer": "Amazon",
+    "price": 299.99
   }
 ]
+
