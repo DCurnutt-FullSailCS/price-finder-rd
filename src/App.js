@@ -1,5 +1,6 @@
 import { useState } from "react";
 import consoleData from "./consoleData.json";
+import "./App.css";
 
 function App() {
   // User's search input
@@ -82,72 +83,66 @@ function App() {
   // RENDER
   // ---------------------------------------------------------
   return (
-    <div style={{ padding: "20px" }}>
-      <h1>Local Game &amp; Console Price Finder</h1>
+    <div className="app">
+      <h1 className="app-title">High Score</h1>
+      <p className="app-subtitle">
+        Compare console and game prices &mdash; lowest price wins.
+      </p>
 
-      {/* Search Input */}
-      <input
-        type="text"
-        placeholder="Search for a console or game..."
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-        onKeyDown={handleKeyDown}
-        style={{ padding: "8px", width: "250px", marginRight: "10px" }}
-      />
-
-      {/* Single unified search button */}
-      <button onClick={handleSearch} style={{ padding: "8px 12px" }}>
-        Search
-      </button>
+      {/* Search bar */}
+      <div className="search-bar">
+        <input
+          type="text"
+          className="search-input"
+          placeholder="Search for a console or game..."
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          onKeyDown={handleKeyDown}
+        />
+        <button className="search-button" onClick={handleSearch}>
+          Search
+        </button>
+      </div>
 
       {/* Loading Message */}
       {loading && (
-        <p style={{ marginTop: "20px", fontStyle: "italic" }}>
-          Searching for prices...
-        </p>
+        <p className="status-message">Searching for prices...</p>
       )}
 
       {/* Error Message (online failed, local still shown) */}
       {error && (
-        <p style={{ color: "red", marginTop: "20px" }}>
-          {error}
-        </p>
+        <p className="error-message">{error}</p>
       )}
 
       {/* No Results Message */}
       {!loading && searched && results.length === 0 && !error && (
-        <p style={{ marginTop: "20px", fontStyle: "italic" }}>
-          No results found.
-        </p>
+        <p className="status-message">No results found.</p>
       )}
 
       {/* Results Header */}
       {results.length > 0 && (
-        <h3 style={{ marginTop: "20px" }}>Results:</h3>
+        <h3 className="results-header">Results:</h3>
       )}
 
-      {/* Results List */}
-      <div style={{ marginTop: "10px" }}>
+      {/* Results grid of cards */}
+      <div className="results-grid">
         {results.map((item, index) => (
-          <div
-            key={index}
-            style={{
-              marginBottom: "10px",
-              padding: "10px",
-              border: "1px solid #ddd",
-              borderRadius: "6px",
-              maxWidth: "350px"
-            }}
-          >
-            {/* Local JSON result (has a "retailer" field) */}
+          <div key={index} className="result-card">
             {"retailer" in item ? (
+              /* Local JSON result (has a "retailer" field) */
               <>
-                <strong>{item.name}</strong> — {item.retailer} — ${item.price}
+                <span className="source-tag source-local">In-Store</span>
+                <div className="result-name">{item.name}</div>
+                <div className="result-detail">Retailer: {item.retailer}</div>
+                <div className="result-price">${item.price}</div>
               </>
             ) : (
               /* CheapShark API result (has "external" and "cheapest") */
               <>
-                <strong>{item.external}</strong> — Cheapest: ${item.cheapest}
+                <span className="source-tag source-online">Online Deal</span>
+                <div className="result-name">{item.external}</div>
+                <div className="result-detail">Best online price</div>
+                <div className="result-price">${item.cheapest}</div>
               </>
             )}
           </div>
