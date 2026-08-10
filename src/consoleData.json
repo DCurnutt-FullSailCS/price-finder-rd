@@ -3,19 +3,49 @@
     "name": "PlayStation 5",
     "aliases": ["ps5", "playstation", "sony ps5"],
     "retailer": "Walmart",
-    "price": 499.99
+    "price": 649.99
+  },
+  {
+    "name": "PlayStation 5 Digital Edition",
+    "aliases": ["ps5 digital", "ps5 digital edition", "playstation 5 digital"],
+    "retailer": "Best Buy",
+    "price": 599.99
+  },
+  {
+    "name": "PlayStation 5 Pro",
+    "aliases": ["ps5 pro", "playstation 5 pro", "ps5pro"],
+    "retailer": "GameStop",
+    "price": 899.99
   },
   {
     "name": "Xbox Series X",
     "aliases": ["xbox", "series x", "xbox x"],
     "retailer": "Best Buy",
+    "price": 799.99
+  },
+  {
+    "name": "Xbox Series S",
+    "aliases": ["series s", "xbox s"],
+    "retailer": "Amazon",
     "price": 499.99
   },
   {
-    "name": "Nintendo Switch",
-    "aliases": ["switch", "nintendo", "switch console"],
+    "name": "Nintendo Switch 2",
+    "aliases": ["switch 2", "nintendo switch 2", "switch2"],
     "retailer": "Target",
-    "price": 299.99
+    "price": 449.99
+  },
+  {
+    "name": "Nintendo Switch OLED",
+    "aliases": ["switch oled", "oled switch", "nintendo oled"],
+    "retailer": "GameStop",
+    "price": 349.99
+  },
+  {
+    "name": "Nintendo Switch Lite",
+    "aliases": ["switch lite", "lite", "nintendo lite"],
+    "retailer": "Walmart",
+    "price": 199.99
   },
   {
     "name": "PlayStation 4",
@@ -24,10 +54,22 @@
     "price": 249.99
   },
   {
-    "name": "Xbox Series S",
-    "aliases": ["series s", "xbox s"],
+    "name": "Steam Deck OLED",
+    "aliases": ["steam deck", "deck", "valve deck", "steam deck oled"],
+    "retailer": "Steam",
+    "price": 649.99
+  },
+  {
+    "name": "Asus ROG Ally",
+    "aliases": ["rog ally", "ally", "asus ally"],
+    "retailer": "Best Buy",
+    "price": 599.99
+  },
+  {
+    "name": "Xbox One S",
+    "aliases": ["xbox one", "one s", "xbox one s"],
     "retailer": "Amazon",
-    "price": 299.99
+    "price": 229.99
   }
 ]
 

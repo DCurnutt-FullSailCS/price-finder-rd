@@ -18,6 +18,20 @@ function App() {
   // Tracks whether a search has been run yet (controls "no results" message)
   const [searched, setSearched] = useState(false);
 
+  // Current sort option: "none" (source order) or "priceAsc"/"priceDesc"
+  const [sortBy, setSortBy] = useState("none");
+
+  // ---------------------------------------------------------
+  // PRICE HELPER
+  // Pulls a numeric price out of either result shape. Local items
+  // store price as a number; CheapShark stores "cheapest" as a
+  // string, so both are normalized to a Number for sorting.
+  // ---------------------------------------------------------
+  const getPrice = (item) => {
+    const raw = "retailer" in item ? item.price : item.cheapest;
+    return parseFloat(raw);
+  };
+
   // ---------------------------------------------------------
   // LOCAL JSON SEARCH
   // Returns the console entries whose name or alias matches the query.
@@ -31,14 +45,21 @@ function App() {
 
   // ---------------------------------------------------------
   // CHEAPSHARK API SEARCH
-  // Returns online game deals matching the query, or an empty
-  // array if the request fails.
+  // Returns online game deals matching the query. Guards against a
+  // non-array response so a bad payload can never crash the results
+  // list. Returns an empty array on any unexpected shape.
   // ---------------------------------------------------------
   const searchOnline = async (term) => {
     const response = await fetch(
       `https://www.cheapshark.com/api/1.0/games?title=${encodeURIComponent(term)}`
     );
-    return await response.json();
+
+    if (!response.ok) {
+      throw new Error(`API responded with status ${response.status}`);
+    }
+
+    const data = await response.json();
+    return Array.isArray(data) ? data : [];
   };
 
   // ---------------------------------------------------------
@@ -80,6 +101,19 @@ function App() {
   };
 
   // ---------------------------------------------------------
+  // SORTED VIEW
+  // Sorting is applied at render time from the current sortBy value,
+  // so changing the sort never re-runs the search. A copy is sorted
+  // so the original merged order is preserved for "none".
+  // ---------------------------------------------------------
+  const sortedResults = [...results];
+  if (sortBy === "priceAsc") {
+    sortedResults.sort((a, b) => getPrice(a) - getPrice(b));
+  } else if (sortBy === "priceDesc") {
+    sortedResults.sort((a, b) => getPrice(b) - getPrice(a));
+  }
+
+  // ---------------------------------------------------------
   // RENDER
   // ---------------------------------------------------------
   return (
@@ -98,9 +132,14 @@ function App() {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           onKeyDown={handleKeyDown}
+          disabled={loading}
         />
-        <button className="search-button" onClick={handleSearch}>
-          Search
+        <button
+          className="search-button"
+          onClick={handleSearch}
+          disabled={loading}
+        >
+          {loading ? "Searching..." : "Search"}
         </button>
       </div>
 
@@ -116,17 +155,35 @@ function App() {
 
       {/* No Results Message */}
       {!loading && searched && results.length === 0 && !error && (
-        <p className="status-message">No results found.</p>
+        <p className="status-message">
+          No results found. Try a different console or game title.
+        </p>
       )}
 
-      {/* Results Header */}
+      {/* Results header row: count + sort control */}
       {results.length > 0 && (
-        <h3 className="results-header">Results:</h3>
+        <div className="results-toolbar">
+          <h3 className="results-header">
+            Results ({results.length}):
+          </h3>
+          <label className="sort-control">
+            Sort by:{" "}
+            <select
+              className="sort-select"
+              value={sortBy}
+              onChange={(e) => setSortBy(e.target.value)}
+            >
+              <option value="none">Relevance</option>
+              <option value="priceAsc">Price: Low to High</option>
+              <option value="priceDesc">Price: High to Low</option>
+            </select>
+          </label>
+        </div>
       )}
 
       {/* Results grid of cards */}
       <div className="results-grid">
-        {results.map((item, index) => (
+        {sortedResults.map((item, index) => (
           <div key={index} className="result-card">
             {"retailer" in item ? (
               /* Local JSON result (has a "retailer" field) */
