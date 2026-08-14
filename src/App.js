@@ -21,6 +21,12 @@ function App() {
   // Current sort option: "none" (source order) or "priceAsc"/"priceDesc"
   const [sortBy, setSortBy] = useState("none");
 
+  // The last few searches the user has run (most recent first)
+  const [recentSearches, setRecentSearches] = useState([]);
+
+  // Whether the recent-searches dropdown is visible
+  const [showRecent, setShowRecent] = useState(false);
+
   // ---------------------------------------------------------
   // PRICE HELPER
   // Pulls a numeric price out of either result shape. Local items
@@ -30,6 +36,18 @@ function App() {
   const getPrice = (item) => {
     const raw = "retailer" in item ? item.price : item.cheapest;
     return parseFloat(raw);
+  };
+
+  // ---------------------------------------------------------
+  // RECENT SEARCHES
+  // Adds a term to the top of the recent list, removes any duplicate
+  // of that term, and caps the list at five entries.
+  // ---------------------------------------------------------
+  const addRecentSearch = (term) => {
+    setRecentSearches(prev => {
+      const withoutDupe = prev.filter(t => t !== term);
+      return [term, ...withoutDupe].slice(0, 5);
+    });
   };
 
   // ---------------------------------------------------------
@@ -66,11 +84,18 @@ function App() {
   // UNIFIED SEARCH
   // Runs the local console lookup and the online game lookup at the
   // same time, then merges both into a single results list so the
-  // user sees everything from one search.
+  // user sees everything from one search. Accepts an optional term
+  // so a recent-search click can search directly.
   // ---------------------------------------------------------
-  const handleSearch = async () => {
-    const term = query.trim().toLowerCase();
+  const handleSearch = async (searchTerm) => {
+    // Use the passed term (from a recent-search click) or the input box.
+    const rawTerm = searchTerm !== undefined ? searchTerm : query;
+    const term = rawTerm.trim().toLowerCase();
     if (!term) return; // ignore empty searches
+
+    // Keep the input in sync when searching from a recent item.
+    setQuery(rawTerm);
+    setShowRecent(false);
 
     setLoading(true);
     setError(null);
@@ -93,11 +118,19 @@ function App() {
     // Merge: local console entries first, then online game deals.
     setResults([...localResults, ...onlineResults]);
     setLoading(false);
+
+    // Record this search so it appears in the recent dropdown.
+    addRecentSearch(term);
   };
 
   // Allow pressing Enter in the input to search.
   const handleKeyDown = (e) => {
     if (e.key === "Enter") handleSearch();
+  };
+
+  // Clicking a recent search runs it immediately.
+  const handleRecentClick = (term) => {
+    handleSearch(term);
   };
 
   // ---------------------------------------------------------
@@ -125,18 +158,41 @@ function App() {
 
       {/* Search bar */}
       <div className="search-bar">
-        <input
-          type="text"
-          className="search-input"
-          placeholder="Search for a console or game..."
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          onKeyDown={handleKeyDown}
-          disabled={loading}
-        />
+        <div className="search-input-wrap">
+          <input
+            type="text"
+            className="search-input"
+            placeholder="Search for a console or game..."
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            onKeyDown={handleKeyDown}
+            onFocus={() => setShowRecent(true)}
+            // Delay hiding so a click on a dropdown item registers first.
+            onBlur={() => setTimeout(() => setShowRecent(false), 150)}
+            disabled={loading}
+          />
+
+          {/* Recent searches dropdown */}
+          {showRecent && recentSearches.length > 0 && (
+            <ul className="recent-dropdown">
+              <li className="recent-label">Recent searches</li>
+              {recentSearches.map((term, index) => (
+                <li
+                  key={index}
+                  className="recent-item"
+                  // onMouseDown fires before onBlur, so the click isn't lost.
+                  onMouseDown={() => handleRecentClick(term)}
+                >
+                  {term}
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+
         <button
           className="search-button"
-          onClick={handleSearch}
+          onClick={() => handleSearch()}
           disabled={loading}
         >
           {loading ? "Searching..." : "Search"}

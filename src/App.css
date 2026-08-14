@@ -175,3 +175,49 @@
   border-color: #f97316;
   box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.15);
 }
+/* ---------- Recent searches dropdown ---------- */
+.search-input-wrap {
+  position: relative;
+  flex: 1;
+}
+
+/* The input inside the wrapper should fill it */
+.search-input-wrap .search-input {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.recent-dropdown {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  margin: 0;
+  padding: 4px 0;
+  list-style: none;
+  background-color: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+  z-index: 20;
+}
+
+.recent-label {
+  padding: 6px 12px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: #9ca3af;
+}
+
+.recent-item {
+  padding: 8px 12px;
+  font-size: 0.9rem;
+  color: #1f2933;
+  cursor: pointer;
+}
+
+.recent-item:hover {
+  background-color: #f1f5f9;
+}
