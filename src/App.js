@@ -21,6 +21,9 @@ function App() {
   // Current sort option: "none" (source order) or "priceAsc"/"priceDesc"
   const [sortBy, setSortBy] = useState("none");
 
+  // Active source filter: "all" | "local" | "online"
+  const [sourceFilter, setSourceFilter] = useState("all");
+
   // The last few searches the user has run (most recent first)
   const [recentSearches, setRecentSearches] = useState([]);
 
@@ -147,6 +150,18 @@ function App() {
   }
 
   // ---------------------------------------------------------
+  // FILTERED VIEW
+  // Narrows the sorted results by source. Local console entries have a
+  // "retailer" field; online (CheapShark) results do not. Filtering is
+  // applied at render time so it never re-runs the search.
+  // ---------------------------------------------------------
+  const visibleResults = sortedResults.filter(item => {
+    if (sourceFilter === "local") return "retailer" in item;
+    if (sourceFilter === "online") return !("retailer" in item);
+    return true; // "all"
+  });
+
+  // ---------------------------------------------------------
   // RENDER
   // ---------------------------------------------------------
   return (
@@ -216,12 +231,35 @@ function App() {
         </p>
       )}
 
-      {/* Results header row: count + sort control */}
+      {/* Results header row: count, source filter toggles, and sort control */}
       {results.length > 0 && (
         <div className="results-toolbar">
           <h3 className="results-header">
-            Results ({results.length}):
+            Results ({visibleResults.length}):
           </h3>
+
+          {/* Source filter toggle buttons */}
+          <div className="filter-group" role="group" aria-label="Filter by source">
+            <button
+              className={`filter-button ${sourceFilter === "all" ? "active" : ""}`}
+              onClick={() => setSourceFilter("all")}
+            >
+              All
+            </button>
+            <button
+              className={`filter-button ${sourceFilter === "local" ? "active" : ""}`}
+              onClick={() => setSourceFilter("local")}
+            >
+              In-Store
+            </button>
+            <button
+              className={`filter-button ${sourceFilter === "online" ? "active" : ""}`}
+              onClick={() => setSourceFilter("online")}
+            >
+              Online
+            </button>
+          </div>
+
           <label className="sort-control">
             Sort by:{" "}
             <select
@@ -237,9 +275,16 @@ function App() {
         </div>
       )}
 
+      {/* Message when a filter hides all results */}
+      {results.length > 0 && visibleResults.length === 0 && (
+        <p className="status-message">
+          No {sourceFilter === "local" ? "in-store" : "online"} results for this search.
+        </p>
+      )}
+
       {/* Results grid of cards */}
       <div className="results-grid">
-        {sortedResults.map((item, index) => (
+        {visibleResults.map((item, index) => (
           <div key={index} className="result-card">
             {"retailer" in item ? (
               /* Local JSON result (has a "retailer" field) */

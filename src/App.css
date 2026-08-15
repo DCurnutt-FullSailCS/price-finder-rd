@@ -221,3 +221,33 @@
 .recent-item:hover {
   background-color: #f1f5f9;
 }
+
+/* ---------- Source filter toggle buttons ---------- */
+.filter-group {
+  display: inline-flex;
+  gap: 4px;
+  background-color: #f1f5f9;
+  padding: 4px;
+  border-radius: 8px;
+}
+
+.filter-button {
+  padding: 6px 14px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #4b5563;
+  background-color: transparent;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.filter-button:hover {
+  color: #1f2933;
+}
+
+.filter-button.active {
+  color: #ffffff;
+  background-color: #f97316;
+}
