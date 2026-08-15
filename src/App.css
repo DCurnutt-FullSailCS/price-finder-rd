@@ -251,3 +251,36 @@
   color: #ffffff;
   background-color: #f97316;
 }
+/* ---------- Favorite star button ---------- */
+/* Ensure the card can anchor the star in its top-right corner */
+.result-card {
+  position: relative;
+}
+
+.favorite-star {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: none;
+  border: none;
+  font-size: 1.3rem;
+  line-height: 1;
+  color: #cbd5e1;
+  cursor: pointer;
+  padding: 2px;
+  transition: color 0.15s ease, transform 0.15s ease;
+}
+
+.favorite-star:hover {
+  color: #f59e0b;
+  transform: scale(1.15);
+}
+
+.favorite-star.saved {
+  color: #f59e0b;
+}
+
+/* Keep the card text clear of the star in the corner */
+.result-card .result-name {
+  padding-right: 22px;
+}

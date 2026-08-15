@@ -24,6 +24,10 @@ function App() {
   // Active source filter: "all" | "local" | "online"
   const [sourceFilter, setSourceFilter] = useState("all");
 
+  // Saved favorite items (full result objects), so they display in the
+  // Favorites view regardless of the current search.
+  const [favorites, setFavorites] = useState([]);
+
   // The last few searches the user has run (most recent first)
   const [recentSearches, setRecentSearches] = useState([]);
 
@@ -39,6 +43,28 @@ function App() {
   const getPrice = (item) => {
     const raw = "retailer" in item ? item.price : item.cheapest;
     return parseFloat(raw);
+  };
+
+  // ---------------------------------------------------------
+  // FAVORITE HELPERS
+  // The two data sources don't share a common id: local consoles have
+  // a "name", CheapShark results have a "gameID". itemKey builds one
+  // stable key that works for either shape so favorites can be tracked.
+  // ---------------------------------------------------------
+  const itemKey = (item) => {
+    return "retailer" in item ? `local-${item.name}` : `online-${item.gameID}`;
+  };
+
+  const isFavorite = (item) =>
+    favorites.some(fav => itemKey(fav) === itemKey(item));
+
+  const toggleFavorite = (item) => {
+    const key = itemKey(item);
+    setFavorites(prev =>
+      prev.some(fav => itemKey(fav) === key)
+        ? prev.filter(fav => itemKey(fav) !== key)   // remove
+        : [...prev, item]                            // save the whole item
+    );
   };
 
   // ---------------------------------------------------------
@@ -142,12 +168,9 @@ function App() {
   // so changing the sort never re-runs the search. A copy is sorted
   // so the original merged order is preserved for "none".
   // ---------------------------------------------------------
-  const sortedResults = [...results];
-  if (sortBy === "priceAsc") {
-    sortedResults.sort((a, b) => getPrice(a) - getPrice(b));
-  } else if (sortBy === "priceDesc") {
-    sortedResults.sort((a, b) => getPrice(b) - getPrice(a));
-  }
+  // Merged results in their natural (relevance) order; sorting is applied
+  // later to whichever list is actually shown.
+  const sortedResults = results;
 
   // ---------------------------------------------------------
   // FILTERED VIEW
@@ -155,11 +178,26 @@ function App() {
   // "retailer" field; online (CheapShark) results do not. Filtering is
   // applied at render time so it never re-runs the search.
   // ---------------------------------------------------------
-  const visibleResults = sortedResults.filter(item => {
-    if (sourceFilter === "local") return "retailer" in item;
-    if (sourceFilter === "online") return !("retailer" in item);
-    return true; // "all"
-  });
+  // For the Favorites view we render the saved items directly, so favorites
+  // from earlier searches still show. Other views filter the current results.
+  let baseList;
+  if (sourceFilter === "favorites") {
+    baseList = favorites;
+  } else if (sourceFilter === "local") {
+    baseList = sortedResults.filter(item => "retailer" in item);
+  } else if (sourceFilter === "online") {
+    baseList = sortedResults.filter(item => !("retailer" in item));
+  } else {
+    baseList = sortedResults;
+  }
+
+  // Apply the current price sort to whatever list is being shown.
+  const visibleResults = [...baseList];
+  if (sortBy === "priceAsc") {
+    visibleResults.sort((a, b) => getPrice(a) - getPrice(b));
+  } else if (sortBy === "priceDesc") {
+    visibleResults.sort((a, b) => getPrice(b) - getPrice(a));
+  }
 
   // ---------------------------------------------------------
   // RENDER
@@ -258,6 +296,12 @@ function App() {
             >
               Online
             </button>
+            <button
+              className={`filter-button ${sourceFilter === "favorites" ? "active" : ""}`}
+              onClick={() => setSourceFilter("favorites")}
+            >
+              &#9733; Favorites ({favorites.length})
+            </button>
           </div>
 
           <label className="sort-control">
@@ -275,8 +319,15 @@ function App() {
         </div>
       )}
 
-      {/* Message when a filter hides all results */}
-      {results.length > 0 && visibleResults.length === 0 && (
+      {/* Empty state for the Favorites view */}
+      {sourceFilter === "favorites" && favorites.length === 0 && (
+        <p className="status-message">
+          No favorites yet &mdash; tap the star on any result to save it.
+        </p>
+      )}
+
+      {/* Message when a source filter hides all results */}
+      {results.length > 0 && visibleResults.length === 0 && sourceFilter !== "favorites" && (
         <p className="status-message">
           No {sourceFilter === "local" ? "in-store" : "online"} results for this search.
         </p>
@@ -286,6 +337,14 @@ function App() {
       <div className="results-grid">
         {visibleResults.map((item, index) => (
           <div key={index} className="result-card">
+            <button
+              className={`favorite-star ${isFavorite(item) ? "saved" : ""}`}
+              onClick={() => toggleFavorite(item)}
+              aria-label={isFavorite(item) ? "Remove from favorites" : "Add to favorites"}
+              title={isFavorite(item) ? "Remove from favorites" : "Add to favorites"}
+            >
+              {isFavorite(item) ? "\u2605" : "\u2606"}
+            </button>
             {"retailer" in item ? (
               /* Local JSON result (has a "retailer" field) */
               <>
