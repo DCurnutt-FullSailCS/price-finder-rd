@@ -34,6 +34,9 @@ function App() {
   // Whether the recent-searches dropdown is visible
   const [showRecent, setShowRecent] = useState(false);
 
+  // Light/dark theme toggle (in-session)
+  const [darkMode, setDarkMode] = useState(false);
+
   // The result currently shown in the details modal (null = closed)
   const [selectedItem, setSelectedItem] = useState(null);
 
@@ -45,6 +48,17 @@ function App() {
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, []);
+
+  // Sync the theme to the <body> so the dark background fills the whole
+  // page, not just the centered app column.
+  useEffect(() => {
+    if (darkMode) {
+      document.body.classList.add("dark-mode");
+    } else {
+      document.body.classList.remove("dark-mode");
+    }
+    return () => document.body.classList.remove("dark-mode");
+  }, [darkMode]);
 
   // ---------------------------------------------------------
   // PRICE HELPER
@@ -215,7 +229,16 @@ function App() {
   // RENDER
   // ---------------------------------------------------------
   return (
-    <div className="app">
+    <div className={`app ${darkMode ? "dark" : ""}`}>
+      <button
+        className="theme-toggle"
+        onClick={() => setDarkMode(prev => !prev)}
+        aria-label={darkMode ? "Switch to light mode" : "Switch to dark mode"}
+        title={darkMode ? "Switch to light mode" : "Switch to dark mode"}
+      >
+        {darkMode ? "\u2600\uFE0F Light" : "\uD83C\uDF19 Dark"}
+      </button>
+
       <h1 className="app-title">High Score</h1>
       <p className="app-subtitle">
         Compare console and game prices &mdash; lowest price wins.
