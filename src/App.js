@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import consoleData from "./consoleData.json";
 import "./App.css";
 
@@ -33,6 +33,18 @@ function App() {
 
   // Whether the recent-searches dropdown is visible
   const [showRecent, setShowRecent] = useState(false);
+
+  // The result currently shown in the details modal (null = closed)
+  const [selectedItem, setSelectedItem] = useState(null);
+
+  // Close the details modal when the user presses Escape.
+  useEffect(() => {
+    const onKey = (e) => {
+      if (e.key === "Escape") setSelectedItem(null);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, []);
 
   // ---------------------------------------------------------
   // PRICE HELPER
@@ -362,9 +374,76 @@ function App() {
                 <div className="result-price">${item.cheapest}</div>
               </>
             )}
+            <button
+              className="details-button"
+              onClick={() => setSelectedItem(item)}
+            >
+              View Details
+            </button>
           </div>
         ))}
       </div>
+
+      {/* Item details modal */}
+      {selectedItem && (
+        <div
+          className="modal-overlay"
+          onClick={() => setSelectedItem(null)}
+        >
+          <div
+            className="modal-card"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              className="modal-close"
+              onClick={() => setSelectedItem(null)}
+              aria-label="Close details"
+            >
+              &times;
+            </button>
+
+            {"retailer" in selectedItem ? (
+              /* In-store console details */
+              <>
+                <span className="source-tag source-local">In-Store</span>
+                <h2 className="modal-title">{selectedItem.name}</h2>
+                <p className="modal-row"><strong>Retailer:</strong> {selectedItem.retailer}</p>
+                <p className="modal-row"><strong>Price:</strong> ${selectedItem.price}</p>
+                <p className="modal-row modal-note">
+                  In-store price from our console price list.
+                </p>
+              </>
+            ) : (
+              /* Online game deal details */
+              <>
+                <span className="source-tag source-online">Online Deal</span>
+                <h2 className="modal-title">{selectedItem.external}</h2>
+                <p className="modal-row"><strong>Best online price:</strong> ${selectedItem.cheapest}</p>
+                <p className="modal-row modal-note">
+                  Live deal data from the CheapShark API.
+                </p>
+                {selectedItem.gameID && (
+                  <a
+                    className="modal-link"
+                    href={`https://www.cheapshark.com/redirect?dealID=${selectedItem.cheapestDealID}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    View Deal
+                  </a>
+                )}
+              </>
+            )}
+
+            <button
+              className={`modal-fav ${isFavorite(selectedItem) ? "saved" : ""}`}
+              onClick={() => toggleFavorite(selectedItem)}
+            >
+              {isFavorite(selectedItem) ? "\u2605 Saved to Favorites" : "\u2606 Add to Favorites"}
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
