@@ -7,7 +7,7 @@
   margin: 0 auto;
   padding: 24px 20px 60px;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  color: #1f2933;
+  color: #1a1a2e;
 }
 
 .app-title {
@@ -16,7 +16,7 @@
 }
 
 .app-subtitle {
-  color: #6b7280;
+  color: #6a6a88;
   margin-top: 0;
   margin-bottom: 24px;
 }
@@ -32,14 +32,14 @@
   flex: 1;
   padding: 10px 12px;
   font-size: 1rem;
-  border: 1px solid #cbd5e1;
+  border: 1px solid #c2c2de;
   border-radius: 8px;
   outline: none;
 }
 
 .search-input:focus {
-  border-color: #f97316;
-  box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.15);
+  border-color: #ff2e88;
+  box-shadow: 0 0 0 3px rgba(255, 46, 136, 0.20);
 }
 
 .search-button {
@@ -47,7 +47,7 @@
   font-size: 1rem;
   font-weight: 600;
   color: #ffffff;
-  background-color: #f97316;
+  background-color: #ff2e88;
   border: none;
   border-radius: 8px;
   cursor: pointer;
@@ -55,14 +55,14 @@
 }
 
 .search-button:hover {
-  background-color: #ea580c;
+  background-color: #e01a72;
 }
 
 /* ---------- Status messages ---------- */
 .status-message {
   margin-top: 16px;
   font-style: italic;
-  color: #6b7280;
+  color: #6a6a88;
 }
 
 .error-message {
@@ -88,7 +88,7 @@
 }
 
 .result-card {
-  border: 1px solid #e5e7eb;
+  border: 1px solid #dcdcf0;
   border-radius: 10px;
   padding: 14px 16px;
   background-color: #ffffff;
@@ -108,7 +108,7 @@
 }
 
 .result-detail {
-  color: #4b5563;
+  color: #4a4a68;
   font-size: 0.9rem;
   margin: 2px 0;
 }
@@ -116,7 +116,7 @@
 .result-price {
   font-size: 1.15rem;
   font-weight: 700;
-  color: #047857;
+  color: #0a8f7a;
   margin-top: 8px;
 }
 
@@ -158,13 +158,13 @@
 
 .sort-control {
   font-size: 0.9rem;
-  color: #4b5563;
+  color: #4a4a68;
 }
 
 .sort-select {
   padding: 6px 10px;
   font-size: 0.9rem;
-  border: 1px solid #cbd5e1;
+  border: 1px solid #c2c2de;
   border-radius: 8px;
   background-color: #ffffff;
   cursor: pointer;
@@ -172,8 +172,8 @@
 }
 
 .sort-select:focus {
-  border-color: #f97316;
-  box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.15);
+  border-color: #ff2e88;
+  box-shadow: 0 0 0 3px rgba(255, 46, 136, 0.20);
 }
 /* ---------- Recent searches dropdown ---------- */
 .search-input-wrap {
@@ -196,7 +196,7 @@
   padding: 4px 0;
   list-style: none;
   background-color: #ffffff;
-  border: 1px solid #cbd5e1;
+  border: 1px solid #c2c2de;
   border-radius: 8px;
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
   z-index: 20;
@@ -208,25 +208,25 @@
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.03em;
-  color: #9ca3af;
+  color: #8a8aa8;
 }
 
 .recent-item {
   padding: 8px 12px;
   font-size: 0.9rem;
-  color: #1f2933;
+  color: #1a1a2e;
   cursor: pointer;
 }
 
 .recent-item:hover {
-  background-color: #f1f5f9;
+  background-color: #ececf6;
 }
 
 /* ---------- Source filter toggle buttons ---------- */
 .filter-group {
   display: inline-flex;
   gap: 4px;
-  background-color: #f1f5f9;
+  background-color: #ececf6;
   padding: 4px;
   border-radius: 8px;
 }
@@ -235,7 +235,7 @@
   padding: 6px 14px;
   font-size: 0.85rem;
   font-weight: 600;
-  color: #4b5563;
+  color: #4a4a68;
   background-color: transparent;
   border: none;
   border-radius: 6px;
@@ -244,12 +244,12 @@
 }
 
 .filter-button:hover {
-  color: #1f2933;
+  color: #1a1a2e;
 }
 
 .filter-button.active {
   color: #ffffff;
-  background-color: #f97316;
+  background-color: #ff2e88;
 }
 /* ---------- View Details button on cards ---------- */
 .details-button {
@@ -258,16 +258,16 @@
   padding: 7px 0;
   font-size: 0.85rem;
   font-weight: 600;
-  color: #f97316;
-  background-color: #fff7ed;
-  border: 1px solid #fed7aa;
+  color: #ff2e88;
+  background-color: #fff0f6;
+  border: 1px solid #ffc2dd;
   border-radius: 6px;
   cursor: pointer;
   transition: background-color 0.15s ease;
 }
 
 .details-button:hover {
-  background-color: #ffedd5;
+  background-color: #ffe0ee;
 }
 
 /* ---------- Details modal ---------- */
@@ -300,12 +300,12 @@
   border: none;
   font-size: 1.6rem;
   line-height: 1;
-  color: #9ca3af;
+  color: #8a8aa8;
   cursor: pointer;
 }
 
 .modal-close:hover {
-  color: #1f2933;
+  color: #1a1a2e;
 }
 
 .modal-title {
@@ -315,11 +315,11 @@
 
 .modal-row {
   margin: 6px 0;
-  color: #374151;
+  color: #2a2a44;
 }
 
 .modal-note {
-  color: #6b7280;
+  color: #6a6a88;
   font-size: 0.85rem;
   font-style: italic;
 }
@@ -330,13 +330,13 @@
   padding: 9px 18px;
   font-weight: 600;
   color: #ffffff;
-  background-color: #f97316;
+  background-color: #ff2e88;
   border-radius: 8px;
   text-decoration: none;
 }
 
 .modal-link:hover {
-  background-color: #ea580c;
+  background-color: #e01a72;
 }
 
 .modal-fav {
@@ -346,17 +346,17 @@
   padding: 9px 0;
   font-size: 0.9rem;
   font-weight: 600;
-  color: #b45309;
-  background-color: #fffbeb;
-  border: 1px solid #fde68a;
+  color: #b8005e;
+  background-color: #fff0f6;
+  border: 1px solid #ffc2dd;
   border-radius: 8px;
   cursor: pointer;
 }
 
 .modal-fav.saved {
   color: #ffffff;
-  background-color: #f59e0b;
-  border-color: #f59e0b;
+  background-color: #ff2e88;
+  border-color: #ff2e88;
 }
 
 /* ============================================================
@@ -369,16 +369,16 @@
   padding: 7px 14px;
   font-size: 0.85rem;
   font-weight: 600;
-  color: #4b5563;
-  background-color: #f1f5f9;
-  border: 1px solid #cbd5e1;
+  color: #4a4a68;
+  background-color: #ececf6;
+  border: 1px solid #c2c2de;
   border-radius: 999px;
   cursor: pointer;
   transition: background-color 0.15s ease, color 0.15s ease;
 }
 
 .theme-toggle:hover {
-  background-color: #e2e8f0;
+  background-color: #ececfa;
 }
 
 /* The app needs relative positioning so the toggle anchors to it */
@@ -392,34 +392,34 @@
    The body class makes the dark background fill the whole page.
    ============================================================ */
 body.dark-mode {
-  background-color: #0f172a;
+  background-color: #12122b;
 }
 
 .app.dark {
-  background-color: #0f172a;
-  color: #e2e8f0;
+  background-color: #12122b;
+  color: #ececfa;
   min-height: 100vh;
 }
 
 .app.dark .app-subtitle {
-  color: #94a3b8;
+  color: #a9a9d0;
 }
 
 .app.dark .theme-toggle {
-  color: #e2e8f0;
-  background-color: #1e293b;
-  border-color: #334155;
+  color: #ececfa;
+  background-color: #1c1c3d;
+  border-color: #33335c;
 }
 
 .app.dark .theme-toggle:hover {
-  background-color: #334155;
+  background-color: #33335c;
 }
 
 /* Search input */
 .app.dark .search-input {
-  color: #e2e8f0;
-  background-color: #1e293b;
-  border-color: #334155;
+  color: #ececfa;
+  background-color: #1c1c3d;
+  border-color: #33335c;
 }
 
 .app.dark .search-input::placeholder {
@@ -428,89 +428,156 @@ body.dark-mode {
 
 /* Recent searches dropdown */
 .app.dark .recent-dropdown {
-  background-color: #1e293b;
-  border-color: #334155;
+  background-color: #1c1c3d;
+  border-color: #33335c;
 }
 
 .app.dark .recent-item {
-  color: #e2e8f0;
+  color: #ececfa;
 }
 
 .app.dark .recent-item:hover {
-  background-color: #334155;
+  background-color: #33335c;
 }
 
 /* Status + error messages */
 .app.dark .status-message {
-  color: #94a3b8;
+  color: #a9a9d0;
 }
 
 /* Filter buttons */
 .app.dark .filter-group {
-  background-color: #1e293b;
+  background-color: #1c1c3d;
 }
 
 .app.dark .filter-button {
-  color: #94a3b8;
+  color: #a9a9d0;
 }
 
 .app.dark .filter-button:hover {
-  color: #e2e8f0;
+  color: #ececfa;
 }
 
 /* active filter button keeps its orange fill */
 
 /* Sort control */
 .app.dark .sort-control {
-  color: #94a3b8;
+  color: #a9a9d0;
 }
 
 .app.dark .sort-select {
-  color: #e2e8f0;
-  background-color: #1e293b;
-  border-color: #334155;
+  color: #ececfa;
+  background-color: #1c1c3d;
+  border-color: #33335c;
 }
 
 /* Result cards */
 .app.dark .result-card {
-  background-color: #1e293b;
-  border-color: #334155;
+  background-color: #1c1c3d;
+  border-color: #33335c;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
 }
 
 .app.dark .result-detail {
-  color: #94a3b8;
+  color: #a9a9d0;
 }
 
 /* Details button on cards */
 .app.dark .details-button {
   color: #fdba74;
-  background-color: #27272a;
-  border-color: #3f3f46;
+  background-color: #26264a;
+  border-color: #3a3a63;
 }
 
 .app.dark .details-button:hover {
-  background-color: #3f3f46;
+  background-color: #3a3a63;
 }
 
 /* Modal */
 .app.dark .modal-card {
-  background-color: #1e293b;
-  color: #e2e8f0;
+  background-color: #1c1c3d;
+  color: #ececfa;
 }
 
 .app.dark .modal-row {
-  color: #cbd5e1;
+  color: #c2c2de;
 }
 
 .app.dark .modal-note {
-  color: #94a3b8;
+  color: #a9a9d0;
 }
 
 .app.dark .modal-close {
-  color: #94a3b8;
+  color: #a9a9d0;
 }
 
 .app.dark .modal-close:hover {
-  color: #e2e8f0;
+  color: #ececfa;
 }
+
+
+/* ============================================================
+   ARCADE NEON — coordinated overrides (magenta + teal)
+   Ensures readable contrast in both light and dark modes.
+   ============================================================ */
+
+/* Prices: teal accent. Deeper teal on light, bright teal on dark. */
+.result-price { color: #0a8f7a; }
+.app.dark .result-price { color: #00e5c0; }
+
+/* Source tags — In-Store = magenta family, Online = teal family */
+.source-local {
+  background-color: #ffe0ee;
+  color: #b8005e;
+}
+.source-online {
+  background-color: #d7fff6;
+  color: #0a8f7a;
+}
+.app.dark .source-local {
+  background-color: #3a1030;
+  color: #ff7ab6;
+}
+.app.dark .source-online {
+  background-color: #0b3b34;
+  color: #46f0d4;
+}
+
+/* Active filter button: white text on magenta (fixes gray-on-orange finding) */
+.filter-button.active {
+  color: #ffffff;
+  background-color: #ff2e88;
+}
+.app.dark .filter-button.active {
+  color: #ffffff;
+  background-color: #ff2e88;
+}
+
+/* Favorite star saved state -> magenta */
+.favorite-star.saved { color: #ff2e88; }
+.favorite-star:hover { color: #ff2e88; }
+
+/* Modal "Add to Favorites" saved -> magenta with white text */
+.modal-fav.saved {
+  color: #ffffff;
+  background-color: #ff2e88;
+  border-color: #ff2e88;
+}
+
+/* Dark-mode readability tweaks for accent-tinted elements */
+.app.dark .details-button {
+  color: #ff7ab6;
+  background-color: #26264a;
+  border-color: #3a3a63;
+}
+.app.dark .details-button:hover { background-color: #3a3a63; }
+
+.app.dark .modal-fav {
+  color: #ff7ab6;
+  background-color: #241830;
+  border-color: #3a3a63;
+}
+
+/* Search button + primary accents keep white text on magenta */
+.search-button { color: #ffffff; }
+.modal-link { color: #ffffff; }
