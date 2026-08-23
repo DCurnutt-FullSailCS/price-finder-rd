@@ -88,6 +88,7 @@
 }
 
 .result-card {
+  position: relative;
   border: 1px solid #dcdcf0;
   border-radius: 10px;
   padding: 14px 16px;
@@ -551,6 +552,36 @@ body.dark-mode {
 .app.dark .filter-button.active {
   color: #ffffff;
   background-color: #ff2e88;
+}
+
+/* Favorite star — positioned in the card's top-right corner */
+.favorite-star {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  background: none;
+  border: none;
+  font-size: 1.3rem;
+  line-height: 1;
+  color: #9a9abd;
+  cursor: pointer;
+  padding: 2px;
+  transition: color 0.15s ease, transform 0.15s ease;
+  z-index: 2;
+}
+
+.favorite-star:hover {
+  transform: scale(1.15);
+}
+
+/* Keep the title clear of the star in the corner */
+.result-card .result-name {
+  padding-right: 26px;
+}
+
+/* Dark-mode default star color */
+.app.dark .favorite-star {
+  color: #8a8ab8;
 }
 
 /* Favorite star saved state -> magenta */
