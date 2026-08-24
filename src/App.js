@@ -25,8 +25,27 @@ function App() {
   const [sourceFilter, setSourceFilter] = useState("all");
 
   // Saved favorite items (full result objects), so they display in the
-  // Favorites view regardless of the current search.
-  const [favorites, setFavorites] = useState([]);
+  // Favorites view regardless of the current search. Initialized from
+  // localStorage so favorites persist across page refreshes and visits.
+  const [favorites, setFavorites] = useState(() => {
+    try {
+      const saved = localStorage.getItem("highscore_favorites");
+      return saved ? JSON.parse(saved) : [];
+    } catch (err) {
+      console.error("Could not read saved favorites:", err);
+      return [];
+    }
+  });
+
+  // Save favorites to localStorage whenever they change, so they survive
+  // a refresh or browser restart.
+  useEffect(() => {
+    try {
+      localStorage.setItem("highscore_favorites", JSON.stringify(favorites));
+    } catch (err) {
+      console.error("Could not save favorites:", err);
+    }
+  }, [favorites]);
 
   // The last few searches the user has run (most recent first)
   const [recentSearches, setRecentSearches] = useState([]);
