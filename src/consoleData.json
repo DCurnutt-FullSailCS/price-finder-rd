@@ -1,75 +1,202 @@
 [
   {
     "name": "PlayStation 5",
-    "aliases": ["ps5", "playstation", "sony ps5"],
+    "aliases": [
+      "ps5",
+      "playstation",
+      "sony ps5"
+    ],
     "retailer": "Walmart",
     "price": 649.99
   },
   {
     "name": "PlayStation 5 Digital Edition",
-    "aliases": ["ps5 digital", "ps5 digital edition", "playstation 5 digital"],
+    "aliases": [
+      "ps5 digital",
+      "ps5 digital edition",
+      "playstation 5 digital"
+    ],
     "retailer": "Best Buy",
     "price": 599.99
   },
   {
     "name": "PlayStation 5 Pro",
-    "aliases": ["ps5 pro", "playstation 5 pro", "ps5pro"],
+    "aliases": [
+      "ps5 pro",
+      "playstation 5 pro",
+      "ps5pro"
+    ],
     "retailer": "GameStop",
     "price": 899.99
   },
   {
     "name": "Xbox Series X",
-    "aliases": ["xbox", "series x", "xbox x"],
+    "aliases": [
+      "xbox",
+      "series x",
+      "xbox x"
+    ],
     "retailer": "Best Buy",
     "price": 799.99
   },
   {
     "name": "Xbox Series S",
-    "aliases": ["series s", "xbox s"],
+    "aliases": [
+      "series s",
+      "xbox s"
+    ],
     "retailer": "Amazon",
     "price": 499.99
   },
   {
     "name": "Nintendo Switch 2",
-    "aliases": ["switch 2", "nintendo switch 2", "switch2"],
+    "aliases": [
+      "switch 2",
+      "nintendo switch 2",
+      "switch2"
+    ],
     "retailer": "Target",
     "price": 449.99
   },
   {
     "name": "Nintendo Switch OLED",
-    "aliases": ["switch oled", "oled switch", "nintendo oled"],
+    "aliases": [
+      "switch oled",
+      "oled switch",
+      "nintendo oled"
+    ],
     "retailer": "GameStop",
     "price": 349.99
   },
   {
     "name": "Nintendo Switch Lite",
-    "aliases": ["switch lite", "lite", "nintendo lite"],
+    "aliases": [
+      "switch lite",
+      "lite",
+      "nintendo lite"
+    ],
     "retailer": "Walmart",
     "price": 199.99
   },
   {
     "name": "PlayStation 4",
-    "aliases": ["ps4", "playstation 4"],
+    "aliases": [
+      "ps4",
+      "playstation 4"
+    ],
     "retailer": "GameStop",
     "price": 249.99
   },
   {
     "name": "Steam Deck OLED",
-    "aliases": ["steam deck", "deck", "valve deck", "steam deck oled"],
+    "aliases": [
+      "steam deck",
+      "deck",
+      "valve deck",
+      "steam deck oled"
+    ],
     "retailer": "Steam",
     "price": 649.99
   },
   {
     "name": "Asus ROG Ally",
-    "aliases": ["rog ally", "ally", "asus ally"],
+    "aliases": [
+      "rog ally",
+      "ally",
+      "asus ally"
+    ],
     "retailer": "Best Buy",
     "price": 599.99
   },
   {
     "name": "Xbox One S",
-    "aliases": ["xbox one", "one s", "xbox one s"],
+    "aliases": [
+      "xbox one",
+      "one s",
+      "xbox one s"
+    ],
     "retailer": "Amazon",
     "price": 229.99
+  },
+  {
+    "name": "Steam Deck LCD",
+    "aliases": [
+      "steam deck lcd",
+      "deck lcd",
+      "valve steam deck"
+    ],
+    "retailer": "Steam",
+    "price": 399.99
+  },
+  {
+    "name": "ASUS ROG Xbox Ally X",
+    "aliases": [
+      "rog ally x",
+      "xbox ally",
+      "rog xbox ally",
+      "ally x"
+    ],
+    "retailer": "Best Buy",
+    "price": 999.99
+  },
+  {
+    "name": "Lenovo Legion Go S",
+    "aliases": [
+      "legion go s",
+      "legion go",
+      "lenovo legion"
+    ],
+    "retailer": "Best Buy",
+    "price": 549.99
+  },
+  {
+    "name": "Lenovo Legion Go 2",
+    "aliases": [
+      "legion go 2",
+      "legion 2",
+      "lenovo legion 2"
+    ],
+    "retailer": "Best Buy",
+    "price": 1199.99
+  },
+  {
+    "name": "MSI Claw 8 AI+",
+    "aliases": [
+      "msi claw",
+      "claw 8",
+      "msi claw 8"
+    ],
+    "retailer": "Amazon",
+    "price": 899.99
+  },
+  {
+    "name": "Retroid Pocket 6",
+    "aliases": [
+      "retroid pocket",
+      "retroid",
+      "pocket 6"
+    ],
+    "retailer": "GoRetroid",
+    "price": 244.99
+  },
+  {
+    "name": "Analogue Pocket",
+    "aliases": [
+      "analogue pocket",
+      "analogue",
+      "pocket"
+    ],
+    "retailer": "Analogue",
+    "price": 239.99
+  },
+  {
+    "name": "Nintendo Switch 2 Bundle",
+    "aliases": [
+      "switch 2 bundle",
+      "switch bundle",
+      "nintendo bundle"
+    ],
+    "retailer": "GameStop",
+    "price": 499.99
   }
 ]
-
