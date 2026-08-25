@@ -2,6 +2,9 @@ import { useState, useEffect } from "react";
 import consoleData from "./consoleData.json";
 import "./App.css";
 
+// Cache of CheapShark store id -> store name, fetched once and reused.
+let storeMapCache = null;
+
 function App() {
   // User's search input
   const [query, setQuery] = useState("");
@@ -142,16 +145,50 @@ function App() {
   // list. Returns an empty array on any unexpected shape.
   // ---------------------------------------------------------
   const searchOnline = async (term) => {
+    // Load the store id -> name map once, then reuse it for every search.
+    if (!storeMapCache) {
+      const storeRes = await fetch("https://www.cheapshark.com/api/1.0/stores");
+      if (storeRes.ok) {
+        const stores = await storeRes.json();
+        storeMapCache = {};
+        if (Array.isArray(stores)) {
+          stores.forEach(s => { storeMapCache[s.storeID] = s.storeName; });
+        }
+      }
+    }
+
+    // The /deals endpoint returns each deal WITH a storeID, unlike /games.
     const response = await fetch(
-      `https://www.cheapshark.com/api/1.0/games?title=${encodeURIComponent(term)}`
+      `https://www.cheapshark.com/api/1.0/deals?title=${encodeURIComponent(term)}&pageSize=30`
     );
 
     if (!response.ok) {
       throw new Error(`API responded with status ${response.status}`);
     }
 
-    const data = await response.json();
-    return Array.isArray(data) ? data : [];
+    const deals = await response.json();
+    if (!Array.isArray(deals)) return [];
+
+    // Dedupe to the cheapest deal per game so each game shows once, with the
+    // store offering that price. Then normalize to the shape the app already
+    // uses (external / cheapest / gameID / cheapestDealID) plus a storeName.
+    const cheapestByGame = {};
+    deals.forEach(deal => {
+      const id = deal.gameID;
+      const price = parseFloat(deal.salePrice);
+      if (!cheapestByGame[id] || price < parseFloat(cheapestByGame[id].salePrice)) {
+        cheapestByGame[id] = deal;
+      }
+    });
+
+    return Object.values(cheapestByGame).map(deal => ({
+      external: deal.title,
+      cheapest: deal.salePrice,
+      gameID: deal.gameID,
+      cheapestDealID: deal.dealID,
+      storeName: (storeMapCache && storeMapCache[deal.storeID]) || "Online store",
+      thumb: deal.thumb,
+    }));
   };
 
   // ---------------------------------------------------------
@@ -412,7 +449,7 @@ function App() {
               <>
                 <span className="source-tag source-online">Online Deal</span>
                 <div className="result-name">{item.external}</div>
-                <div className="result-detail">Best online price</div>
+                <div className="result-detail">Store: {item.storeName}</div>
                 <div className="result-price">${item.cheapest}</div>
               </>
             )}
@@ -460,6 +497,7 @@ function App() {
               <>
                 <span className="source-tag source-online">Online Deal</span>
                 <h2 className="modal-title">{selectedItem.external}</h2>
+                <p className="modal-row"><strong>Store:</strong> {selectedItem.storeName}</p>
                 <p className="modal-row"><strong>Best online price:</strong> ${selectedItem.cheapest}</p>
                 <p className="modal-row modal-note">
                   Live deal data from the CheapShark API.
