@@ -343,6 +343,30 @@ function App() {
         </button>
       </div>
 
+      {/* First-load empty state — shown before any search has run */}
+      {!searched && !loading && (
+        <div className="empty-state">
+          <div className="empty-state-icon">🕹️</div>
+          <h2 className="empty-state-title">Find the best price</h2>
+          <p className="empty-state-text">
+            Search for a console or game above to compare in-store and online
+            prices in one place.
+          </p>
+          <div className="empty-state-examples">
+            <span className="empty-state-examples-label">Try:</span>
+            {["PS5", "Nintendo Switch", "Zelda", "Xbox"].map((ex) => (
+              <button
+                key={ex}
+                className="example-chip"
+                onClick={() => handleSearch(ex)}
+              >
+                {ex}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+
       {/* Loading Message */}
       {loading && (
         <p className="status-message">Searching for prices...</p>
