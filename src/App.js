@@ -57,7 +57,13 @@ function App() {
   const [showRecent, setShowRecent] = useState(false);
 
   // Light/dark theme toggle (in-session)
-  const [darkMode, setDarkMode] = useState(false);
+  const [darkMode, setDarkMode] = useState(() => {
+    try {
+      return localStorage.getItem("highscore_darkmode") === "true";
+    } catch (err) {
+      return false;
+    }
+  });
 
   // The result currently shown in the details modal (null = closed)
   const [selectedItem, setSelectedItem] = useState(null);
@@ -78,6 +84,12 @@ function App() {
       document.body.classList.add("dark-mode");
     } else {
       document.body.classList.remove("dark-mode");
+    }
+    // Remember the theme choice so it persists across refreshes.
+    try {
+      localStorage.setItem("highscore_darkmode", darkMode);
+    } catch (err) {
+      console.error("Could not save theme preference:", err);
     }
     return () => document.body.classList.remove("dark-mode");
   }, [darkMode]);
