@@ -485,7 +485,7 @@ function App() {
               <>
                 <span className="source-tag source-online">Online Deal</span>
                 <div className="result-name">{item.external}</div>
-                <div className="result-detail">Store: {item.storeName}</div>
+                <div className="result-detail">Store: {item.storeName || "Online store"}</div>
                 <div className="result-price">${item.cheapest}</div>
               </>
             )}
@@ -533,7 +533,7 @@ function App() {
               <>
                 <span className="source-tag source-online">Online Deal</span>
                 <h2 className="modal-title">{selectedItem.external}</h2>
-                <p className="modal-row"><strong>Store:</strong> {selectedItem.storeName}</p>
+                <p className="modal-row"><strong>Store:</strong> {selectedItem.storeName || "Online store"}</p>
                 <p className="modal-row"><strong>Best online price:</strong> ${selectedItem.cheapest}</p>
                 <p className="modal-row modal-note">
                   Live deal data from the CheapShark API.
